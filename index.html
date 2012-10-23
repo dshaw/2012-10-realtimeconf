@@ -1,0 +1,550 @@
+<!doctype html>  
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Observability - @dshaw</title>
+
+  <meta name="description" content="Observability - for Node.js and Realtime Software.">
+  <meta name="author" content="Daniel D. Shaw - @dshaw">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <link rel="stylesheet" href="./assets/css/reset.css">
+  <link rel="stylesheet" href="./assets/css/main.css">
+  <link rel="stylesheet" href="./assets/css/print.css" type="text/css" media="print">
+  <link rel="stylesheet" href="./assets/css/zenburn.css">
+  <style type="text/css">
+    #reveal section img.noborder {
+      border: 0
+    }
+    #reveal h1, #reveal h2, #reveal h3, #reveal h4 {
+      /*margin-top: 40px;*/
+      /*margin-top: 20px;*/
+    }
+    #reveal h1.title {
+      font-size: 108px
+    }
+    #reveal h1.subtitle {
+      font-size: 54px;
+      line-height: 120%;
+    }
+    #reveal section img.avatar {
+      margin-top: 20px;
+    }
+    #reveal section img.intro {
+      width: 200px;
+      height: 200px;
+    }
+    #reveal h1.buzz {
+      font-size: 72px;
+      line-height: 120%;
+    }
+    #reveal h1.aka,
+    #reveal h1.intro {
+      font-size: 96px
+    }
+    #reveal h1.section-intro {
+      font-size: 96px;
+      margin: 40px 0;
+    }
+    .enterprisestack {
+      padding: 0 1em;
+    }
+    .def,
+    .hilist {
+      font-size: 1.6em;
+      line-height: 100%;
+      margin: .2em 0;
+    }
+    .lilpad {
+      padding: 2em;
+    }
+    cite {
+      font-size: 0.8em;
+    }
+    code {
+      font-size: 1.4em;
+      line-height: 120%;
+      padding: 30px;
+    }
+    .list-separator {
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <div id="reveal">
+
+    <!-- Used to fade in a background when a specific slide state is reached -->
+    <div class="state-background"></div>
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+      <!-- Overview -->
+      <section>
+        <section>
+          <h1 class="title">Observability</h1>
+          <h1 class="subtitle">for Node.js &amp; Realtime Software</h1>
+
+          <p class="intro">
+            <img class="avatar" src="./assets/images/angry_unicorn.png">
+          </p>
+
+          <h3 class="inverted">@dshaw</h3>
+          <script>
+            // Delicously hacky. Look away.
+            if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)) document.write('<p style="color: rgba(0,0,0,0.3); text-shadow: none;">(' + 'Tap to navigate' + ')</p>');
+          </script>
+        </section>
+        <section>
+          <h1 class="buzz">
+            <ol>
+              <li>#bigdata</li>
+              <li>#chinamarket</li>
+              <li>#observability</li>
+            </ol>
+          </h1>
+
+          <p class="intro">
+            <img class="avatar enterprisestack" src="./assets/images/enterprisestack.png">
+          </p>
+
+          <h3 class="inverted">@enterprisestack</h3>
+        </section>
+        <section>
+          <h1 class="aka" style="margin: 40px 0;">Precondition:</h1>
+          <h2>Observability is hard</h2>
+          <h2>...especially at scale.</h2>
+        </section>
+      </section>
+
+      <!-- About -->
+      <section>
+        <section>
+          <h1 class="intro">dshaw</h1>
+          <p><img src="./assets/images/angry_unicorn.png" class="lilpad intro"></p>
+        </section>
+        <section>
+          <h1 class="intro">Voxer</h1>
+          <p><img src="./assets/images/voxer.png" class="lilpad intro"></p>
+        </section>
+        <section>
+          <h1 class="intro">The Node Firm</h1>
+          <p><img src="./assets/images/nodefirm.png" class="lilpad intro"></p>
+        </section>
+        <section>
+          <h1 class="intro">NodeUp</h1>
+          <p><img src="./assets/images/nodeup.jpg" class="lilpad intro"></p>
+        </section>
+      </section>
+
+      <!-- Observability: introduction -->
+      <section>
+        <section>
+          <h2>Define: Observability</h2>
+
+          <p class="def">Observability is a measure for how well internal states of a system can be inferred by knowledge of its external outputs.</p>
+
+          <cite>Source: <a href="http://en.wikipedia.org/wiki/Observability">Wikipedia</a></cite>
+        </section>
+        <section>
+          <p><img src="./assets/images/thumbsup.png" style="width: 300px"></p>
+
+          <div class="fragment">
+            <h2>Caveat Emptor</h2>
+
+            <p>I'm going to abuse the term a bit.</p>
+          </div>
+        </section>
+        <section>
+          <h2 style="margin-top: 40px;">Realtime App Priorities</h2>
+
+          <ol class="hilist">
+            <li>Scalability</li>
+            <li>Observability</li>
+          </ol>
+
+          <p class="fragment" style="margin-top: 20px;">Scale is why we build realtime apps. Observability is how we keep things sane at scale.</p>
+        </section>
+      </section>
+
+      <!-- Observability: why -->
+      <section>
+        <section>
+          <h2>Observability: Why?</h2>
+
+          <p class="def">Sometimes things get out of control.</p>
+
+          <p><img src="./assets/images/boat-faceplant.gif" style="width: 60%; background-color: #EEE; background: rgba(0, 0, 0, 0.1);"></p>
+
+          <p class="fragment">You'll want to know what's going on.</p>
+        </section>
+      </section>
+
+      <!-- Observability: tools -->
+      <section>
+        <section>
+          <h2>Observers Tools</h2>
+
+          <ol class="hilist">
+            <li>logging</li>
+            <li>health/status endpoints</li>
+            <li>REPL</li>
+            <li class="list-separator">monitoring</li>
+            <li>log aggregation</li>
+            <li>metrics</li>
+            <li>DTrace</li>
+          </ol>
+        </section>
+      </section>
+
+      <!-- Observability of the World: Part I -->
+      <section>
+        <h1 class="section-intro">
+          Discrete Observability
+        </h1>
+      </section>
+
+      <!-- Observability: logging -->
+      <section>
+        <section>
+          <h2>Logging</h2>
+
+          <p class="def">Logging is your friend.</p>
+
+          <ul style="width: 600px; margin-top: 40px;">
+            <li>Don't be afraid of logging.</li>
+            <li>Not logging, or severely limiting logging,
+                is a ridiculous premature optimization.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Logging</h2>
+
+          <p class="def">Yes, you <b><i>can</i></b> go too far.</p>
+
+          <ul style="width: 600px; margin-top: 40px;">
+            <li>Be careful with expensive to serialize objects.</li>
+            <li>Noise reduces observability.</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Observability: health -->
+      <section>
+        <section>
+          <h2>Health/Status Endpoints</h2>
+
+          <p>Create a status or health endpoint.</p>
+
+          <ul>
+            <li>process.memory</li>
+            <li>process.uptime</li>
+            <li>process.versions</li>
+            <li>process.pid</li>
+            <li>connections</li>
+            <li><i>proc: cpu microtime</i></li>
+          </ul>
+        </section>
+        <section>
+          <h2>/health</h2>
+
+          <pre><code contenteditable>
+app.get('/health', function(req, res){
+  res.send({
+    pid: process.pid,
+    memory: process.memoryUsage(),
+    uptime: process.uptime(),
+    connections: server.connections
+  })
+})
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- Observability: REPL -->
+      <section>
+        <section>
+          <h2>REPL</h2>
+
+          <pre><code contenteditable>
+var net = require('net'),
+  , repl = require('repl');
+
+net.createServer(function (socket) {
+  repl.start({
+    prompt: 'repl> ',
+    input: socket,
+    output: socket
+  }).on('exit', function() {
+    socket.end();
+  })
+}).listen('/tmp/node-repl.sock');
+          </code></pre>
+        </section>
+        <section>
+          <h2>REPL: no excuses</h2>
+
+          <h3>Use Replify.</h3>
+
+          <pre><code contenteditable>
+npm install replify
+          </code></pre>
+          <pre><code contenteditable>
+var replify = require('replify')
+  , io = require('socket.io').listen(8888)
+  , app = io
+
+io.on('connection', function (socket) {
+  //...
+})
+
+replify('socket.io', app)
+          </code></pre>
+        </section>
+        <section>
+          <h2>Access your replify REPL</h2>
+
+          <h3>netcat</h3>
+          <pre><code contenteditable>
+$ nc -U /tmp/repl/socket.io.sock
+          </code></pre>
+
+          <h3>socat</h3>
+          <pre><code contenteditable>
+$ socat READLINE /tmp/repl/socket.io.sock
+          </code></pre>
+        </section>
+        <section>
+          <h2>Let's make that easier too!</h2>
+
+          <h3>repl-client (rc)</h3>
+
+          <pre><code contenteditable>
+npm install -g repl-client
+          </code></pre>
+
+          <pre><code contenteditable>
+$ rc /tmp/repl/socket.io.sock
+          </code></pre>
+        </section>
+        <section>
+          <h2>repl-client (rc)</h2>
+
+          <ol class="hilist" style="width: 600px; margin-top: 40px;">
+            <li>history<sup>*</sup></li>
+            <li>tab completion</li>
+          </ol>
+
+          <p><br>(<sup>*</sup> also possible with socat)</p>
+        </section>
+      </section>
+
+      <!-- Observability: monitoring -->
+      <section>
+        <section>
+          <h2>Monitoring</h2>
+
+          <ol class="hilist" style="width: 600px; margin-top: 40px;">
+            <li>Nagios</li>
+            <li>reconnoiter</li>
+            <li>Circonus</li>
+            <li>Munin</li>
+          </ol>
+        </section>
+        <section>
+          <h2>Monitoring #RedisConf Edition</h2>
+
+          <ol class="hilist" style="width: 600px; margin-top: 40px;">
+            <li>Reddish</li>
+            <li>RedisLive</li>
+            <li>Redis Monitor</li>
+          </ol>
+        </section>
+        <section>
+          <h2>Redis Monitor</h2>
+
+          <p>Monitor a single Redis or a cluster of Redis servers.</p>
+
+          <p>Now visualize what's going on on those servers.</p>
+
+          <p><img src="./assets/images/redis-monitor-screenshot.png" style="width: 60%"></p>
+
+          <p><a href="https://github.com/dshaw/redis-monitor">github.com/dshaw/redis-monitor</a></p>
+        </section>
+        <section>
+          <h2>Redis: Use MONITOR for drop-in observation</h2>
+
+          <p>Monitoring with Redis MONITOR is bad.</p>
+
+          <p>The MONITOR command is good and useful for debugging, but not monitoring.</p>
+
+          <p><a href="http://redis.io/commands/monitor">redis.io/commands/monitor</a></p>
+        </section>
+      </section>
+
+      <!-- Observability of the World: Part II -->
+      <section>
+        <h1 class="section-intro">
+          Aggregate<br>
+          and Lossy<br>
+          Observability</h1>
+      </section>
+
+      <!-- Observability: log aggregation -->
+      <section>
+        <section>
+          <h2>Log Aggregation</h2>
+
+          <ol class="hilist" style="width: 600px; margin-top: 40px;">
+            <li>Loggly</li>
+            <li>Graylog2</li>
+            <li>Splunk</li>
+            <li>Winston/Winstond</li>
+            <li>files + grep</li>
+          </ol>
+        </section>
+      </section>
+
+      <!-- Observability: metrics -->
+      <section>
+        <section>
+          <h2>Metrics</h2>
+
+          <ol class="hilist" style="width: 600px; margin-top: 40px;">
+            <li>Etsy statsd</li>
+            <li>Something new soon from the Voxer Summer of Node.js Interns...</li>
+          </ol>
+        </section>
+        <section>
+          <h2>Summer of Node.js <3 Metrics</h2>
+
+          <p><img src="./assets/images/voxer-interns.jpg" style="width: 500px; background-color: #EEE; background: rgba(0, 0, 0, 0.1);"></p>
+        </section>
+        <section>
+          <h2>@sentientwaffle</h2>
+
+          <h3><a href="https://github.com/sentientwaffle/llquantize">llquantize</a></h3>
+
+          <p><img src="./assets/images/sentientwaffle.png" style="width: 250px; background-color: #EEE; background: rgba(0, 0, 0, 0.1);"></p>
+        </section>
+        <section>
+          <h2>Metrics (can) tell a story</h2>
+
+          <ol class="hilist" style="width: 600px; margin-top: 40px;">
+            <li>Visualization</li>
+            <li>Comparative Analysis</li>
+            <li>System Health</li>
+            <li>Event Triggers</li>
+          </ol>
+        </section>
+        <section>
+          <h2>Good Metrics</h2>
+
+          <h3>Evolve from the foundations provided by other observability measures.</h3>
+        </section>
+      </section>
+
+      <!-- Observability: dtrace -->
+      <section>
+        <h2>Dtrace</h2>
+        <p><img class="noborder" src="./assets/images/dtrace_pony.png" style="width: 500px; background-color: #EEE; background: rgba(0, 0, 0, 0.1);"></p>
+      </section>
+
+      <!-- Observability: conclusion -->
+      <section>
+        <section>
+          <h1 class="aka">Observability means optimizing software for humans.</h1>
+        </section>
+        <section>
+          <p><img class="noborder" src="./assets/images/neverending-paula-deen.jpg" style="width: 500px; background-color: #EEE; background: rgba(0, 0, 0, 0.1);"></p>
+          <h3>Neverending Story</h3>
+        </section>
+      </section>
+
+      <section>
+        <h1>Thank you!</h1>
+
+        <p class="intro">
+          <img class="avatar" src="./assets/images/angry_unicorn.png">
+        </p>
+
+        <h3 class="inverted">@dshaw</h3>
+
+        <p>More at: <a href="http://github.com/dshaw">github.com/dshaw</a></p>
+      </section>
+
+    </div>
+
+    <!-- The navigational controls UI -->
+    <aside class="controls">
+      <a class="left" href="#">&#x25C4;</a>
+      <a class="right" href="#">&#x25BA;</a>
+      <a class="up" href="#">&#x25B2;</a>
+      <a class="down" href="#">&#x25BC;</a>
+    </aside>
+
+    <!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+    <div class="progress"><span></span></div>
+
+  </div>
+
+
+  <!-- Hot JavaScript Action -->
+  <script src="./assets/js/reveal.js"></script>
+
+  <!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
+  <script src="./assets/js/highlight.js"></script>
+  <script src="./assets/js/classlist.js"></script>
+
+  <script>
+    // Parse the query string into a key/value object
+    var query = {};
+    location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+      query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+    } );
+
+    // Fires when a slide with data-state=customevent is activated
+    Reveal.addEventListener( 'customevent', function() {
+      alert( '"customevent" has fired' );
+    } );
+
+    // Fires each time a new slide is activated
+    Reveal.addEventListener( 'slidechanged', function( event ) {
+      // event.indexh & event.indexv
+    } );
+
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+
+      // Display a presentation progress bar
+      progress: true,
+
+      // If true; each slide will be pushed to the browser history
+      history: true,
+
+      // Loops the presentation, defaults to false
+      loop: false,
+
+      // Flags if mouse wheel navigation should be enabled
+      mouseWheel: true,
+
+      // Apply a 3D roll to links on hover
+      rollingLinks: true,
+
+      // UI style
+      theme: query.theme || 'default', // default/neon
+
+      // Transition style
+      transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+    });
+
+    hljs.initHighlightingOnLoad();
+  </script>
+
+</body>
+</html>
