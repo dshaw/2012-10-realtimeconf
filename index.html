@@ -192,9 +192,9 @@
           <ol class="hilist">
             <li>logging</li>
             <li>health/status endpoints</li>
-            <li>REPL</li>
-            <li class="list-separator">monitoring</li>
+            <li class="list-separator">REPL</li>
             <li>log aggregation</li>
+            <li>monitoring</li>
             <li>metrics</li>
             <li>DTrace</li>
           </ol>
@@ -343,14 +343,39 @@ $ rc /tmp/repl/socket.io.sock
         </section>
       </section>
 
+      <!-- Observability of the World: Part II -->
+      <section>
+          <h1 class="section-intro">
+              Aggregate<br>
+              and Lossy<br>
+              Observability
+          </h1>
+      </section>
+
+      <!-- Observability: log aggregation -->
+      <section>
+          <section>
+              <h2>Log Aggregation</h2>
+
+              <ol class="hilist" style="width: 600px; margin-top: 40px;">
+                  <li>Loggly</li>
+                  <li>Graylog2</li>
+                  <li>Splunk</li>
+                  <li>Winston/Winstond</li>
+                  <li>files + grep</li>
+              </ol>
+          </section>
+      </section>
+
       <!-- Observability: monitoring -->
       <section>
         <section>
           <h2>Monitoring</h2>
 
           <ol class="hilist" style="width: 600px; margin-top: 40px;">
+            <li>Boundary</li>
             <li>Nagios</li>
-            <li>reconnoiter</li>
+            <li>Reconnoiter</li>
             <li>Circonus</li>
             <li>Munin</li>
           </ol>
@@ -383,29 +408,6 @@ $ rc /tmp/repl/socket.io.sock
           <p>The MONITOR command is good and useful for debugging, but not monitoring.</p>
 
           <p><a href="http://redis.io/commands/monitor">redis.io/commands/monitor</a></p>
-        </section>
-      </section>
-
-      <!-- Observability of the World: Part II -->
-      <section>
-        <h1 class="section-intro">
-          Aggregate<br>
-          and Lossy<br>
-          Observability</h1>
-      </section>
-
-      <!-- Observability: log aggregation -->
-      <section>
-        <section>
-          <h2>Log Aggregation</h2>
-
-          <ol class="hilist" style="width: 600px; margin-top: 40px;">
-            <li>Loggly</li>
-            <li>Graylog2</li>
-            <li>Splunk</li>
-            <li>Winston/Winstond</li>
-            <li>files + grep</li>
-          </ol>
         </section>
       </section>
 
@@ -461,7 +463,7 @@ $ rc /tmp/repl/socket.io.sock
         </section>
         <section>
           <p><img class="noborder" src="./assets/images/neverending-paula-deen.jpg" style="width: 500px; background-color: #EEE; background: rgba(0, 0, 0, 0.1);"></p>
-          <h3>Neverending Story</h3>
+          <h3>NeverEnding Story</h3>
         </section>
       </section>
 
