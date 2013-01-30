@@ -2,9 +2,13 @@
 
 Slides from my talk at Realtime Conf 2012 on Observability. I explore what observability means to realtime software, why we should care, and how to start making realtime Node.js apps more observable. I present some tools and approaches that I've found useful running production realtime software.
 
-## Online Slides
+## Slides
 
 http://dshaw.github.com/2012-10-realtimeconf
+
+## Video
+
+http://2012.realtimeconf.com/video/daniel-shaw
 
 ## View Locally
 
